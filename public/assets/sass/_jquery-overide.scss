@@ -1,0 +1,20 @@
+.ui-widget-content {
+  border: 0;
+  background: transparent;
+}
+
+.slider {
+  .ui-slider-handle {
+    margin-top: -2px;
+  }
+}
+
+.ui-icon-gripsmall-diagonal-se {
+  background: url(../img/resize-handler.png) no-repeat center center;
+  width: 30px;
+  height: 30px;
+  bottom: -20px;
+}
+.ui-draggable-handle {
+  overflow: visible!important;
+}

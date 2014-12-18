@@ -1,0 +1,68 @@
+.background {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.editor {
+  background: #FFF;
+
+  .obj_item{
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px auto;
+  }
+  .item{
+    border:3px solid #CDCDCD;
+    background-color:#FFF;
+    position:relative;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .thumb{
+    margin:5px;
+    text-align: center;
+    img {
+      margin: 0 auto;
+    }
+  }
+  .remove{
+    width:16px;
+    height:16px;
+    float: right;
+    margin: -90px -5px 0 0;
+    background:transparent url(../img/remove-handler.png) no-repeat center center;
+    cursor:pointer;
+  }
+  .slider-wrapper {
+    width: 100%;
+    margin: 5px 0px 0px 5px;
+
+    span {
+      font-size: 13px;
+      font-weight: normal;
+      display: block;
+      clear: both;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+    .slider {
+      border-radius: 20px;
+      width: 100%;
+      background-color:#fff;
+      border: 1px solid #CDCDCD;
+      margin-top: -17px;
+      margin-bottom: 10px;
+    }
+
+    .ui-slider-handle {
+      width:16px;
+      height:16px;
+      margin-top: 0;
+      border: 0;
+      cursor: pointer;
+      outline:none;
+      background: url('../img/slider-handler.png') no-repeat center center;
+    }
+  }
+}
