@@ -168,7 +168,7 @@ mustache.init = function() {
         alert('test');
         var dataString  = JSON.stringify(data);
         $('#jsondata').val(dataString);
-        $('#jsonform').submit();
+        $('.jsonform').submit();
     });
 };
 

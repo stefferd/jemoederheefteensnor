@@ -17,22 +17,57 @@ class MustacheController extends BaseController {
 
 	public function index()
 	{
-		return View::make('front.index');
+        $entries = Pictures::all();
+		return View::make('front.page.index')->with(['entries' => $entries]);
 	}
 
-    public function editor()
+    public function editor($id)
     {
-        return View::make('front.editor');
+        $picture = Pictures::find($id);
+        return View::make('front.page.editor')->with(array('picture' => $picture));
     }
 
-    public function save()
+    public function upload() {
+        return View::make('front.page.create');
+    }
+
+    public function create() {
+        $rules = array(
+            'image' => 'required'
+        );
+        $message = '';
+
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            $message = 'Je bent vergeten een bestand toe te voegen';
+        } else {
+            $filename = time() . '.jpg';
+
+            $image = Image::make(Input::file('image')->getRealPath());
+            $image->resize(1024, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->save(public_path() . '/assets/live/uploads/' . $filename);
+
+            $picture = new Pictures;
+            $picture->url = $filename;
+            $picture->created_by = Request::getClientIp();
+            $picture->save();
+        }
+
+
+        return Redirect::route(array('route' => 'mustache.editor', 'id' => $picture->id))->with(['message' => $message]);
+    }
+
+    public function save($id)
     {
+        $picture = Pictures::find($id);
         //dd(Input::all());
         $res = JSON_decode(stripslashes(Input::get('jsondata')), true);
         /* get data */
         $count_images   = count($res['images']);
         /* the background image is the first one */
-        $background     = public_path() . '/assets/live/img/'. $res['images'][0]['src'];
+        $background     = public_path() . '/assets/live/uploads/'. $picture->url;
         $photoFrame = Image::make($background);
 
         /* the other images */
@@ -48,13 +83,11 @@ class MustacheController extends BaseController {
             $photoFrame2TOP = $res['images'][$i]['top'];
             $photoFrame2LEFT= $res['images'][$i]['left'];
 
-
-
             $photoFrame->insert($mustache, 'top-left', intval($photoFrame2LEFT), intval($photoFrame2TOP));
         }
         // Set the content type header - in this case image/jpeg
-        $photoFrame->save(public_path() . '/assets/live/uploads/mustache.jpg');
-        return View::make('front.index');
+        $photoFrame->save(public_path() . '/assets/live/uploads/' . $picture->url);
+        return Redirect::route('mustache.index');
     }
 
 }

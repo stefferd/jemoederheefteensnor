@@ -5,3 +5,38 @@ html, body {
   font: 100%/100% "Helvetica Neue Light", Arial, sans-serif;
   background: #EFEFEF;
 }
+
+.navbar-default {
+  background-color: #231f20;
+  border-bottom: 3px solid #CDCDCD;
+  height: 80px;
+
+  .btn-group {
+    margin-top: 22px;
+    margin-left: -300px;
+
+    .btn {
+      font-size: 12px;
+      border: 1px solid #FFF;
+
+      &:first-child {
+        border-radius: 15px 0 0 15px;
+      }
+
+      &:last-child {
+        border-radius: 0 15px 15px 0;
+      }
+
+      &.btn-primary {
+        background: #FFF;
+        color: #231f20;
+
+      }
+
+      &.btn-default {
+        background: #231f20;
+        color: #FFF;
+      }
+    }
+  }
+}
